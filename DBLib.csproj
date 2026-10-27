@@ -4,6 +4,14 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <PackageId>CounterStrikeSharpDBLib</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Lukseh</Authors>
+    <Description>API for sharing database connections between CounterStrikeSharp plugins.</Description>
+    <RepositoryUrl>https://github.com/Lukseh/DBLib</RepositoryUrl>
+    <PackageTags>CounterStrikeSharp;Database;DBLib</PackageTags>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

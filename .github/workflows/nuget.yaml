@@ -1,0 +1,57 @@
+
+name: Publish to NuGet.org
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Determine version
+        shell: bash
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "PACKAGE_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Restore
+        run: dotnet restore DBLib.csproj
+
+      - name: Build
+        run: dotnet build DBLib.csproj --no-restore -c Release
+
+      - name: Pack
+        run: >
+          dotnet pack DBLib.csproj
+          --no-restore
+          --no-build
+          -c Release
+          -p:PackageVersion=${{ env.PACKAGE_VERSION }}
+          -o ./output
+
+      - name: Authenticate with NuGet.org
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: lukseh74
+
+      - name: Publish package
+        run: >
+          dotnet nuget push ./output/*.nupkg
+          --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
