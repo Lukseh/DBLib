@@ -4,7 +4,7 @@ DBLib is API for connecting your CS# plugin to shared database using LINQ2DB ORM
 
 ## Nuget
 
-To use DBLib install [Nuget package](https://www.nuget.org/packages/CounterStrikeSharpDBLib) or run `dotnet app package CounterStrikeSharpDBLib`
+To use DBLib install [Nuget package](https://www.nuget.org/packages/CounterStrikeSharpDBLib) or run `dotnet package add CounterStrikeSharpDBLib`
 
 To access your db ORM object see this example code
 
